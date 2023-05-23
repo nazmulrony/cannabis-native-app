@@ -1,12 +1,4 @@
-import {
-    View,
-    Text,
-    StyleSheet,
-    Pressable,
-    ScrollView,
-    FlatList,
-    Image,
-} from "react-native";
+import { View, Text, StyleSheet, Pressable, ScrollView, FlatList, Image } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
@@ -22,8 +14,10 @@ import { useSelector } from "react-redux";
 import { marketplaceSelector } from "../../redux/slices/marketplace.slice";
 import { useGetSearchProductsQuery } from "../../ApiServices/marketplace.service";
 import CardSkeleton from "../../ui/CardSkeleton";
+import useScreenSize from "../../hooks/useScreenSize";
 
 const CategoriesScreen = ({ route, navigation }) => {
+    const { screenWidth } = useScreenSize();
     const category = route.params.category;
     // console.log(category);
     const { data, isLoading } = useGetSearchProductsQuery(category, {
@@ -39,8 +33,7 @@ const CategoriesScreen = ({ route, navigation }) => {
     //console.log(items);
     const [filterLength, setFilterLength] = useState(0);
     const [active, setActive] = useState("");
-    const [sortAndFilterModalIsOpen, setSortAndFilterModalIsOpen] =
-        useState(false);
+    const [sortAndFilterModalIsOpen, setSortAndFilterModalIsOpen] = useState(false);
     const [categoriesModalIsOpen, setCategoriesModalIsOpen] = useState(false);
     const [selected, setSelected] = useState(route.params.name);
     const [sortModalIsOpen, setSortModalIsOpen] = useState(false);
@@ -71,11 +64,7 @@ const CategoriesScreen = ({ route, navigation }) => {
     useEffect(() => {
         let len = 0;
         const key = "name";
-        const unique = [
-            ...new Map(
-                selectedFilters.map((item) => [item[key], item])
-            ).values(),
-        ];
+        const unique = [...new Map(selectedFilters.map((item) => [item[key], item])).values()];
         unique.map((sf) => {
             if (sf.isSelected === true) {
                 len = len + 1;
@@ -174,32 +163,27 @@ const CategoriesScreen = ({ route, navigation }) => {
                             style={
                                 index === filterOptionNames.length - 1
                                     ? [
-                                        filterLength
-                                            ? {
-                                                ...styles.categoriesBtn,
-                                                backgroundColor:
-                                                    Colors.green500,
-                                                marginRight: 0,
-                                            }
-                                            : {
-                                                ...styles.categoriesBtn,
-                                                marginRight: 0,
-                                            },
-                                    ]
+                                          filterLength
+                                              ? {
+                                                    ...styles.categoriesBtn,
+                                                    backgroundColor: Colors.green500,
+                                                    marginRight: 0,
+                                                }
+                                              : {
+                                                    ...styles.categoriesBtn,
+                                                    marginRight: 0,
+                                                },
+                                      ]
                                     : [
-                                        selectedFilters.find((sf) => {
-                                            return (
-                                                sf.name === cat &&
-                                                sf.isSelected
-                                            );
-                                        })
-                                            ? {
-                                                ...styles.categoriesBtn,
-                                                backgroundColor:
-                                                    Colors.green500,
-                                            }
-                                            : styles.categoriesBtn,
-                                    ]
+                                          selectedFilters.find((sf) => {
+                                              return sf.name === cat && sf.isSelected;
+                                          })
+                                              ? {
+                                                    ...styles.categoriesBtn,
+                                                    backgroundColor: Colors.green500,
+                                                }
+                                              : styles.categoriesBtn,
+                                      ]
                             }
                             onPress={() => {
                                 setActive(cat);
@@ -228,9 +212,9 @@ const CategoriesScreen = ({ route, navigation }) => {
                                     style={
                                         filterLength
                                             ? {
-                                                ...styles.categoriesText,
-                                                color: "white",
-                                            }
+                                                  ...styles.categoriesText,
+                                                  color: "white",
+                                              }
                                             : styles.categoriesText
                                     }
                                 >
@@ -240,14 +224,12 @@ const CategoriesScreen = ({ route, navigation }) => {
                                 <Text
                                     style={
                                         selectedFilters.find((sf) => {
-                                            return (
-                                                sf.name === cat && sf.isSelected
-                                            );
+                                            return sf.name === cat && sf.isSelected;
                                         })
                                             ? {
-                                                ...styles.categoriesText,
-                                                color: "white",
-                                            }
+                                                  ...styles.categoriesText,
+                                                  color: "white",
+                                              }
                                             : styles.categoriesText
                                     }
                                 >
@@ -258,9 +240,7 @@ const CategoriesScreen = ({ route, navigation }) => {
                                 <Ionicons
                                     name="options"
                                     size={20}
-                                    color={
-                                        filterLength ? "white" : Colors.dark600
-                                    }
+                                    color={filterLength ? "white" : Colors.dark600}
                                 />
                             ) : (
                                 <Entypo
@@ -268,9 +248,7 @@ const CategoriesScreen = ({ route, navigation }) => {
                                     size={20}
                                     color={
                                         selectedFilters.find((sf) => {
-                                            return (
-                                                sf.name === cat && sf.isSelected
-                                            );
+                                            return sf.name === cat && sf.isSelected;
                                         })
                                             ? "white"
                                             : Colors.dark600
@@ -292,7 +270,9 @@ const CategoriesScreen = ({ route, navigation }) => {
                     />
                 ) : products?.length ? (
                     <FlatList
+                        key={screenWidth}
                         data={products}
+                        ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
                         renderItem={({ item, index }) => (
                             <Pressable
                                 onPress={() =>
@@ -302,8 +282,9 @@ const CategoriesScreen = ({ route, navigation }) => {
                                 }
                                 style={({ pressed }) => {
                                     const baseStyle = {
-                                        marginRight: index % 2 === 0 ? 20 : 0,
-                                        marginBottom: 20,
+                                        paddingRight: 20,
+                                        // marginRight: index % 2 === 0 ? 20 : 0,
+                                        // marginBottom: 20,
                                     };
                                     const pressedStyle = { opacity: 0.7 };
                                     return [baseStyle, pressed && pressedStyle];
@@ -312,7 +293,7 @@ const CategoriesScreen = ({ route, navigation }) => {
                                 <Card product={item} />
                             </Pressable>
                         )}
-                        numColumns={2}
+                        numColumns={screenWidth < 700 ? 2 : screenWidth < 1000 ? 3 : 4}
                         showsVerticalScrollIndicator={false}
                     />
                 ) : (

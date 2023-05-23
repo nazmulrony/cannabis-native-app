@@ -83,7 +83,7 @@ const StackNavigator = () => {
             {user ? (
                 <Stack.Navigator
                     screenOptions={{
-                        cardStyle: { backgroundColor: "#f5f5f5", borderWidth: 3 },
+                        cardStyle: { backgroundColor: "#f5f5f5" },
                     }}
                 >
                     <Stack.Screen

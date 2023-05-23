@@ -11,7 +11,7 @@
         "name": "Cannabis Connector",
         "slug": "cannabis-connector-native",
         "version": "1.0.0",
-        "orientation": "auto",
+        "orientation": null,
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "light",
         "splash": {
@@ -47,7 +47,7 @@
         "owner": "nhrony",
         "extra": {
             "eas": {
-                "projectId": "5659b948-8d06-46f7-b66f-6115ce62d1a0"
+                "projectId": "c154b9de-58e5-47fe-b9d0-782e15928639"
             }
         }
     }

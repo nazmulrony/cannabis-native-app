@@ -14,7 +14,10 @@ const useScreenSize = () => {
         Dimensions.addEventListener("change", updateScreenSize);
 
         return () => {
-            Dimensions.removeEventListener("change", updateScreenSize);
+            if (typeof Dimensions.removeEventListener === "function") {
+                // Dimensions.removeEventListener("change", updateOrientation);
+                Dimensions.removeEventListener("change", updateScreenSize);
+            }
         };
     }, []);
 

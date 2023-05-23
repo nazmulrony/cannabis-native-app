@@ -16,8 +16,8 @@ import useScreenSize from "../hooks/useScreenSize";
 
 const SignInScreen = ({ navigation }) => {
     // const value = useIsPortrait();
-    const { screenWidth } = useScreenSize();
-    console.log(screenWidth);
+    const { screenWidth, screenHeight } = useScreenSize();
+    console.log(screenHeight);
     const [show, setShow] = useState(false);
     const {
         control,
@@ -65,9 +65,9 @@ const SignInScreen = ({ navigation }) => {
                 style={{
                     flex: 1,
                     justifyContent: "center",
-                    // height: isPortrait
-                    //     ? Dimensions.get("window").height - 250
-                    //     : Dimensions.get("window").height - 250,
+
+                    height: screenHeight > 700 ? screenHeight - 80 : "auto",
+                    // borderWidth: 1,
                 }}
             >
                 <Box style={styles.imageContainer}>
@@ -220,7 +220,6 @@ export default SignInScreen;
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        marginHorizontal: "auto",
         padding: 20,
         backgroundColor: "white",
         maxWidth: 700,
@@ -257,5 +256,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginVertical: 8,
+        marginBottom: 56,
     },
 });

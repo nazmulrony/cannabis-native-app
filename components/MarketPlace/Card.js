@@ -11,11 +11,26 @@ import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
+import useScreenSize from "../../hooks/useScreenSize";
 
 const Card = ({ product, style }) => {
+    const { screenWidth } = useScreenSize();
     // console.log(product);
     return (
-        <View style={[styles.card, style]}>
+        <View
+            style={[
+                styles.card,
+                style,
+                {
+                    width:
+                        screenWidth < 700
+                            ? screenWidth / 2 - 30
+                            : screenWidth < 1000
+                            ? screenWidth / 3 - 20
+                            : screenWidth / 4 - 15,
+                },
+            ]}
+        >
             <View>
                 <View
                     style={
@@ -114,12 +129,8 @@ const Card = ({ product, style }) => {
             </View>
             <View style={styles.cardContent}>
                 <View style={styles.typeContainer}>
-                    <Text style={styles.type}>
-                        {product?.specifications?.brand}
-                    </Text>
-                    <Text style={styles.quantity}>
-                        {product?.batch?.size} ml
-                    </Text>
+                    <Text style={styles.type}>{product?.specifications?.brand}</Text>
+                    <Text style={styles.quantity}>{product?.batch?.size} ml</Text>
                 </View>
                 <Text style={[styles.productTitle, { height: 36 }]}>
                     {product?.title.length > 36
@@ -130,9 +141,7 @@ const Card = ({ product, style }) => {
                     <View style={styles.verified}>
                         <AntDesign name="check" size={10} color="white" />
                     </View>
-                    <Text style={styles.brandName}>
-                        {product?.company?.name}
-                    </Text>
+                    <Text style={styles.brandName}>{product?.company?.name}</Text>
                 </View>
                 <View style={styles.ratingsContainer}>
                     <View style={{ flexDirection: "row", marginRight: 6 }}>
@@ -228,7 +237,7 @@ const Card = ({ product, style }) => {
 
 const styles = StyleSheet.create({
     card: {
-        width: Dimensions.get("window").width / 2 - 30,
+        // width: Dimensions.get("window").width / 2 - 30,
     },
     image: {
         height: 137,
