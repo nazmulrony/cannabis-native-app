@@ -4,19 +4,19 @@ import {
     StyleSheet,
     Pressable,
     Image,
+    ScrollView,
     Dimensions,
-} from "react-native";
-import React, { useLayoutEffect, useState } from "react";
-import { ScrollView } from "react-native-gesture-handler";
-import { color } from "react-native-reanimated";
-import { GlobalStyles } from "../constants/style";
-import ProductInfo from "../components/InventoryProductDetails/ProductInfo";
-import Specifications from "../components/InventoryProductDetails/Specifications";
-import Colors from "../constants/Colors";
-import InventoryDetailsTopTabs from "../navigators/InventoryDetailsTopTabs";
-import ImageCarousel from "../components/InventoryProductDetails/ImageCarousel";
+} from 'react-native';
+import React, { useLayoutEffect, useState } from 'react';
+import { color } from 'react-native-reanimated';
+import { GlobalStyles } from '../constants/style';
+import ProductInfo from '../components/InventoryProductDetails/ProductInfo';
+import Specifications from '../components/InventoryProductDetails/Specifications';
+import Colors from '../constants/Colors';
+import InventoryDetailsTopTabs from '../navigators/InventoryDetailsTopTabs';
+import ImageCarousel from '../components/InventoryProductDetails/ImageCarousel';
 
-const { width } = Dimensions.get("window");
+const { width } = Dimensions.get('window');
 
 const InventoryProductDetailsScreen = ({ navigation, route }) => {
     const product = route.params;
@@ -44,7 +44,7 @@ const InventoryProductDetailsScreen = ({ navigation, route }) => {
                 >
                     <View
                         style={{
-                            backgroundColor: "white",
+                            backgroundColor: 'white',
                             borderBottomLeftRadius: 8,
                             borderBottomRightRadius: 8,
                         }}
@@ -136,7 +136,7 @@ const InventoryProductDetailsScreen = ({ navigation, route }) => {
                     <View
                         style={{
                             marginTop: 20,
-                            backgroundColor: "white",
+                            backgroundColor: 'white',
                             paddingHorizontal: 20,
                             borderRadius: 8,
                             flex: 1,
@@ -163,11 +163,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         // paddingHorizontal: 20,
-        width: "100%",
+        width: '100%',
         // backgroundColor: "white",
     },
     headerImageContainer: {
-        overflow: "hidden",
+        overflow: 'hidden',
         // borderWidth: 1,
         borderRadius: 8,
         borderColor: GlobalStyles.colors.gray100,
@@ -180,8 +180,8 @@ const styles = StyleSheet.create({
     },
 
     imagesContainer: {
-        flexDirection: "row",
-        justifyContent: "center",
+        flexDirection: 'row',
+        justifyContent: 'center',
         marginVertical: 8,
     },
     thumbImage: {
